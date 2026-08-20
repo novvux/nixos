@@ -118,7 +118,6 @@
       nwg-look
       adw-gtk3
       inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-      inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli
     ];
   };
 

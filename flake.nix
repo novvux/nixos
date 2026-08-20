@@ -15,15 +15,12 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
 #    zapret.url = "git+https://codeberg.org/VOXEL0798/zapret-discord-youtube-nix.flake.git";
-    zapret.url = "git+file:///home/novvux/zapret-discord-youtube-nix.flake";
+#    zapret.url = "git+file:///home/novvux/zapret-discord-youtube-nix.flake";
+    zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
 #    proxy-suite.url = "github:FUFSoB/proxy-suite-flake";
   };
 
