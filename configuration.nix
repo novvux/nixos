@@ -39,28 +39,22 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.desktopManager.gnome.enable = false;
+#  services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
+#  services.desktopManager.plasma6.enable = true;
+#  services.displayManager.plasma-login-manager.enable = true;
 
   programs.mango.enable = true;
-  security.polkit.enable = true;
-
-  # Screensharing
-#  xdg.portal.enable = true;
-#  xdg.portal.wlr.enable = true;
+#  security.polkit.enable = true;
 
   xdg.portal = {
     enable = true; # Required for any XDG portal to function
-    wlr.enable = true; # Enables the wlroots portal (required for MangoWM)
-    
-    # Explicitly prioritize 'wlr' for MangoWM to prevent GNOME's portal from hijacking requests
-#    config = {
-#      common.default = [ "wlr" "gtk" ];
-#      mango.default = lib.mkForce [ "wlr" "gtk" ];
-#    };
-    
-    # Optional but recommended: ensures GTK file dialogs work alongside wlr
-#    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+#    wlr.enable = true;
+  };
+
+  # For screensharing
+  systemd.user.services.xdg-desktop-portal-wlr.environment = {
+    PATH = lib.mkForce "${pkgs.wofi}/bin:${pkgs.rofi}/bin:${pkgs.bemenu}/bin:${pkgs.grim}/bin:${pkgs.slurp}/bin:/run/current-system/sw/bin";
   };
 
   # Configure keymap in X11
@@ -81,8 +75,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -92,6 +85,12 @@
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.fish;
     packages = with pkgs; [
+      nemo-with-extensions
+      nemo-python
+      nemo-emblems
+      nemo-preview
+      folder-color-switcher
+
       equibop
       materialgram
       ayugram-desktop
@@ -160,6 +159,14 @@
     papirus-icon-theme
     papirus-folders
     git
+    # For screensharing
+    wofi
+    rofi
+    bemenu
+    mew
+    wlroots
+    slurp
+    grim
   ];
 
   # This value determines the NixOS release from which the default
