@@ -15,11 +15,14 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    freesmlauncher = {
+      url = "github:FreesmTeam/FreesmLauncher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
 #    zapret.url = "git+https://codeberg.org/VOXEL0798/zapret-discord-youtube-nix.flake.git";
-#    zapret.url = "git+file:///home/novvux/zapret-discord-youtube-nix.flake";
     zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
 #    proxy-suite.url = "github:FUFSoB/proxy-suite-flake";
   };
@@ -32,7 +35,7 @@
 
 
 
-  outputs = { self, nixpkgs, zen-browser, zapret, mangowm, ... }@inputs: {
+  outputs = { self, nixpkgs, zen-browser, zapret, mangowm, freesmlauncher, ... }@inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
