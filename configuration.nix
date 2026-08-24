@@ -67,6 +67,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Part for Dolphin
   environment.etc."xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
   # Enable sound with pipewire.
@@ -87,6 +88,7 @@
     extraGroups = [ "networkmanager" "wheel" "plugdev" ];
     shell = pkgs.fish;
     packages = with pkgs; [
+      # Dolphin
       kdePackages.dolphin
       kdePackages.kio-extras
       kdePackages.kio-fuse
@@ -96,12 +98,7 @@
       sshfs
       avahi
       libmtp
-      # thumbnailer needs ffmpeg with unfree codecs
-#      ffmpegthumbnailer            # Generates video thumbnails (mp4, mkv, webm, etc.)
-#      (ffmpegthumbnailer.override {
-#        ffmpeg = pkgs.ffmpeg.override { withUnfree = true; };
-#      })
-#      kdePackages.ffmpegthumbs
+      kdePackages.ffmpegthumbs
       kdePackages.kdegraphics-thumbnailers
       qt6.qtimageformats
       libheif
@@ -116,7 +113,7 @@
       libavif
       qimgv
 
-#      freecad
+      freecad
       zathura
 #      libreoffice-fresh
 #      onlyoffice-desktopeditors
@@ -125,10 +122,10 @@
       qbittorrent
       yt-dlp
 
-#      lutris
-#      inputs.freesmlauncher.packages.${system}.freesmlauncher
-#      mangohud
-#      gamemode
+      lutris
+      inputs.freesmlauncher.packages.${system}.freesmlauncher
+      mangohud
+      gamemode
 
       playerctl
       nwg-look
@@ -160,23 +157,7 @@
   programs.nix-ld.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config = {
-    allowUnfree = true;
- 
-    # This shit needs 17 GiB of storage to build   
-#    packageOverrides = pkgs: {
-#      ffmpeg = pkgs.ffmpeg.override {
-#        withUnfree = true; 
-#        withMetal = false; # Use Metal API on Mac. Unfree and requires manual downloading of files
-#        withMfx = false; # Hardware acceleration via the deprecated intel-media-sdk/libmfx. Use oneVPL instead (enabled by default) from Intel's oneAPI.
-#        withTensorflow = false; # Tensorflow dnn backend support (Increases closure size by ~390 MiB)
-#        withSmallBuild = true; # Prefer binary size to performance.
-#        withDebug = false; # Build using debug options
-#        withHeadlessDeps = true;
-#        withFullDeps = false;
-#      };
-#    };
-  };
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -184,15 +165,15 @@
 
   nix.distributedBuilds = true;
 
-  nix.buildMachines = [
-    {
-      hostName = "192.168.1.7"; # Or hostname
-      sshUser = "admin";
-      sshKey = "/root/.ssh/id_ed25519";
-      systems = [ "x86_64-linux" ]; # MUST match your local architecture
-      maxJobs = 6; # Number of cores to use on the remote machine
-      speedFactor = 10; # Higher number = Nix prefers this machine over local
-    }
+#  nix.buildMachines = [
+#    {
+#      hostName = "192.168.1.7"; # Or hostname
+#      sshUser = "admin";
+#      sshKey = "/root/.ssh/id_ed25519";
+#      systems = [ "x86_64-linux" ]; # MUST match your local architecture
+#      maxJobs = 6; # Number of cores to use on the remote machine
+#      speedFactor = 10; # Higher number = Nix prefers this machine over local
+#    }
   ];
 
   # Tells the remote machine to download pre-built binaries from the Nix cache 
@@ -215,6 +196,7 @@
     cargo
     rustc
     gcc
+    python3
 
     mpv
 
@@ -227,7 +209,6 @@
     wofi
     rofi
     bemenu
-    mew
     wlroots
     slurp
     grim
