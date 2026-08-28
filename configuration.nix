@@ -37,7 +37,7 @@
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "ru_RU.UTF-8";
 
 #  services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
@@ -67,6 +67,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.udisks2.enable = true;
+
   # Part for Dolphin
   environment.etc."xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
@@ -90,6 +92,7 @@
     packages = with pkgs; [
       # Dolphin
       kdePackages.dolphin
+      kdePackages.kio
       kdePackages.kio-extras
       kdePackages.kio-fuse
       samba
@@ -102,10 +105,11 @@
       kdePackages.kdegraphics-thumbnailers
       qt6.qtimageformats
       libheif
+      kdePackages.ark
 
       equibop
-      materialgram
-#      ayugram-desktop
+#      materialgram
+      ayugram-desktop
 #      zoom-us
 
       kdePackages.qt6ct
@@ -113,6 +117,7 @@
       libavif
       qimgv
 
+      orca-slicer
       freecad
       zathura
 #      libreoffice-fresh
@@ -154,6 +159,9 @@
     openFirewall = true;
   };
 
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   programs.nix-ld.enable = true;
 
   # Allow unfree packages
@@ -174,7 +182,7 @@
 #      maxJobs = 6; # Number of cores to use on the remote machine
 #      speedFactor = 10; # Higher number = Nix prefers this machine over local
 #    }
-  ];
+#  ];
 
   # Tells the remote machine to download pre-built binaries from the Nix cache 
   # instead of building from source if they are already available.
@@ -198,6 +206,7 @@
     gcc
     python3
 
+    ffmpeg-full
     mpv
 
     btop
