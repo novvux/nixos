@@ -108,7 +108,6 @@
       kdePackages.ark
 
       equibop
-#      materialgram
       ayugram-desktop
 #      zoom-us
 
@@ -123,13 +122,12 @@
 #      libreoffice-fresh
 #      onlyoffice-desktopeditors
 #      gram
-#      krita
 
       qbittorrent
       yt-dlp
 
       lutris
-#      inputs.freesmlauncher.packages.${system}.freesmlauncher
+      inputs.freesmlauncher.packages.${system}.freesmlauncher
       mangohud
       gamemode
 
@@ -138,11 +136,6 @@
       adw-gtk3
       inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
-  };
-
-  services.cloudflare-warp = {
-    enable = true;
-    openFirewall = true;
   };
 
   # Install firefox.
@@ -165,10 +158,10 @@
     openFirewall = true;
   };
 
-#  programs.appimage.enable = true;
-#  programs.appimage.binfmt = true;
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
 
-#  programs.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -204,7 +197,6 @@
     pywalfox-native
     libidn2
     alacritty
-    usbutils
 
     zed-editor
     rust-analyzer
@@ -213,12 +205,11 @@
     gcc
     python3
 
-    gnumake
-
     ffmpeg-full
     mpv
 
     btop
+    mpv
     papirus-icon-theme
     papirus-folders
     git
