@@ -23,6 +23,9 @@
 #  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 #  boot.kernelPackages = pkgs.linux_zen;
 
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.kernelModules = [ "v4l2loopback" ];
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -71,6 +74,7 @@
 
   # Part for Dolphin
   environment.etc."xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  services.gvfs.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -87,7 +91,7 @@
   users.users."novvux" = {
     isNormalUser = true;
     description = "novvux";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" "video" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       # Dolphin
@@ -106,6 +110,10 @@
       qt6.qtimageformats
       libheif
       kdePackages.ark
+
+      nextcloud-client
+
+      android-tools
 
       equibop
 #      materialgram
@@ -127,9 +135,10 @@
 
       qbittorrent
       yt-dlp
+#      euphonica
 
       lutris
-#      inputs.freesmlauncher.packages.${system}.freesmlauncher
+      inputs.freesmlauncher.packages.${system}.freesmlauncher
       mangohud
       gamemode
 
@@ -139,6 +148,8 @@
       inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
+
+  users.groups.plugdev = {};
 
   services.cloudflare-warp = {
     enable = true;
@@ -179,16 +190,16 @@
 
   nix.distributedBuilds = true;
 
-#  nix.buildMachines = [
-#    {
-#      hostName = "192.168.1.7"; # Or hostname
-#      sshUser = "admin";
-#      sshKey = "/root/.ssh/id_ed25519";
-#      systems = [ "x86_64-linux" ]; # MUST match your local architecture
-#      maxJobs = 6; # Number of cores to use on the remote machine
-#      speedFactor = 10; # Higher number = Nix prefers this machine over local
-#    }
-#  ];
+  nix.buildMachines = [
+    {
+      hostName = "192.168.1.7"; # Or hostname
+      sshUser = "admin";
+      sshKey = "/root/.ssh/id_ed25519";
+      systems = [ "x86_64-linux" ]; # MUST match your local architecture
+      maxJobs = 6; # Number of cores to use on the remote machine
+      speedFactor = 10; # Higher number = Nix prefers this machine over local
+    }
+  ];
 
   # Tells the remote machine to download pre-built binaries from the Nix cache 
   # instead of building from source if they are already available.
@@ -207,13 +218,16 @@
     usbutils
 
     zed-editor
+    rustup
     rust-analyzer
     cargo
     rustc
+    probe-rs-tools
+
     gcc
     python3
-
     gnumake
+    pkg-config
 
     ffmpeg-full
     mpv
@@ -230,6 +244,14 @@
     slurp
     grim
   ];
+
+  # Костыли, мои любимые
+  services.udev.extraRules = ''
+    # Espressif USB JTAG/serial (ESP32-C3 built-in JTAG)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="303a", ATTR{idProduct}=="1001", MODE="0666", TAG+="uaccess"
+    # Espressif USB Serial (ESP32-C3 standard USB CDC)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="303a", ATTR{idProduct}=="1002", MODE="0666", TAG+="uaccess"
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -21,6 +21,7 @@
     };
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+#    probe-rs-rules.url = "github:jneem/probe-rs-rules";
 
 #    zapret.url = "git+https://codeberg.org/VOXEL0798/zapret-discord-youtube-nix.flake.git";
     zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
@@ -28,12 +29,11 @@
   };
 
   nixConfig = {
-#    extra-substituters = [ "https://noctalia.cachix.org" "https://mirror.yandex.ru/nixos/" ];
-#    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
-    extra-substituters = [ "https://mirror.yandex.ru/nixos/" ];
+    substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://mirror.yandex.ru/nixos" "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://mirror.sjtu.edu.cn/nix-channels/store" ];
+#    trusted-substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/" ];
+    # Ensure you use the correct public key for the mirror
+#    trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
-
-
 
   outputs = { self, nixpkgs, zen-browser, zapret, mangowm, freesmlauncher, ... }@inputs: {
     nixosConfigurations = {
