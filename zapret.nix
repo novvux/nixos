@@ -37,8 +37,10 @@
 
     extraCustomStrategies."general_alt11_onetrust.bat" = ''
       --wf-tcp=80,443 --wf-udp=443
-      --filter-tcp=443 --hostlist="%LISTS%zapret-hosts-google.txt" --ip-id=zero --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern="%BIN%tls_clienthello_www_google_com.bin" --dpi-desync-fake-tls="%BIN%tls_clienthello_www_google_com.bin" --new
+      --filter-tcp=443 --hostlist="%LISTS%zapret-hosts-google.txt" --ip-id=zero --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern="%BIN%tls_clienthello_www_google_com.bin" --dpi-desync-fake-tls="%BIN%stun2.bin" --new
       --filter-tcp=80,443 --hostlist-exclude="%LISTS%zapret-hosts-user-exclude.txt" --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=652 --dpi-desync-split-pos=2 --dpi-desync-fooling=ts --dpi-desync-repeats=12 --dpi-desync-split-seqovl-pattern="%BIN%tls_clienthello_5ka_ru.bin" --dpi-desync-fake-tls="%BIN%stun2.bin" --dpi-desync-fake-tls="%BIN%tls_clienthello_5ka_ru.bin" --dpi-desync-fake-http="%BIN%tls_clienthello_5ka_ru.bin" --new
+#      --filter-udp=41641 --hostlist-domains=tailscale.net --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls="%BIN%tls_clienthello_www_google_com.bin"
+#      --filter-tcp=80,443 --hostlist-exclude="%LISTS%zapret-hosts-user-exclude.txt" --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls="%BIN%tls_clienthello_www_google_com.bin"
     '';
   };
 }

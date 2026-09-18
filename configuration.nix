@@ -7,7 +7,6 @@
 {
   nixpkgs.overlays = [ 
     inputs.millennium.overlays.default 
-    inputs.nix-cachyos-kernel.overlays.pinned
   ];
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
@@ -22,6 +21,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 #  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 #  boot.kernelPackages = pkgs.linux_zen;
+
+#  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+#  services.scx.enable = true; # by default uses scx_rustland scheduler
+#  hardware.nvidia.package = pkgs.nvidia_cachyos;
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" ];
@@ -110,6 +113,8 @@
       qt6.qtimageformats
       libheif
       kdePackages.ark
+      unrar
+      p7zip
 
       nextcloud-client
 
@@ -128,7 +133,7 @@
       orca-slicer
       freecad
       zathura
-#      libreoffice-fresh
+#      libreoffice-stable
 #      onlyoffice-desktopeditors
 #      gram
 #      krita
@@ -138,7 +143,7 @@
 #      euphonica
 
       lutris
-      inputs.freesmlauncher.packages.${system}.freesmlauncher
+#      inputs.freesmlauncher.packages.${system}.freesmlauncher
       mangohud
       gamemode
 
@@ -167,7 +172,10 @@
   programs.steam = {
     enable = true;
     package = pkgs.millennium-steam;
+    gamescopeSession.enable = true;
   };
+
+  programs.gamescope.enable = true;
 
   programs.fish.enable = true;
 
@@ -179,7 +187,7 @@
 #  programs.appimage.enable = true;
 #  programs.appimage.binfmt = true;
 
-#  programs.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -187,6 +195,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nix.settings.auto-optimise-store = true;
+  nix.settings.min-free = "2G";
 
   nix.distributedBuilds = true;
 
