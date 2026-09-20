@@ -9,20 +9,25 @@
     inputs.millennium.overlays.default 
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-bore;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.open = false;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    modesetting.enable = true;
-    open = false;
-  };
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+#  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+#  boot.kernelPackages = pkgs.linux_zen;
+
+#  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+#  services.scx.enable = true; # by default uses scx_rustland scheduler
+#  hardware.nvidia.package = pkgs.nvidia_cachyos;
+
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.kernelModules = [ "v4l2loopback" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -166,17 +171,6 @@
     tunMode.enable = true;
   };
 
-  programs.proxychains = {
-    enable = true;
-    proxies = {
-      default = { 
-        type = "http";
-        host = "127.0.0.1";
-        port = 2080;
-      };
-    };
-  };
-
   programs.steam = {
     enable = true;
     package = pkgs.millennium-steam;
@@ -184,8 +178,6 @@
   };
 
   programs.gamescope.enable = true;
-
-  programs.fish.enable = true;
 
   programs.localsend = {
     enable = true;

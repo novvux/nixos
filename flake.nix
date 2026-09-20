@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     mangowm = {
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,14 +25,22 @@
   };
 
   nixConfig = {
-    substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" "https://mirror.yandex.ru/nixos" "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://mirror.sjtu.edu.cn/nix-channels/store" "https://chaotic-nyx.cachix.org" " https://nix-community.cachix.org" ];
+    substituters = [ 
+      "https://mirrors.ustc.edu.cn/nix-channels/store" 
+      "https://mirror.yandex.ru/nixos" 
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" 
+      "https://mirror.sjtu.edu.cn/nix-channels/store" 
+      "https://chaotic-nyx.cachix.org" 
+      "https://nix-community.cachix.org" 
+      "https://nyx-cache.chaotic.cx"
+    ];
 #    trusted-substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/" ];
     # Ensure you use the correct public key for the mirror
 #    trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
 #    min-free = 2G;
   };
 
-  outputs = { self, nixpkgs, zen-browser, zapret, mangowm, chaotic, freesmlauncher, ... }@inputs: {
+  outputs = { self, nixpkgs, zapret, mangowm, chaotic, home-manager, freesmlauncher, ... }@inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
