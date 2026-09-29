@@ -11,8 +11,10 @@
 
     settings = {
       Peers = [
-        # Public seed peers (update occasionally if one goes offline).
-        "quic://ip4.fvm.mywire.org:443?key=000000000143db657d1d6f80b5066dd109a4cb31f7dc6cb5d56050fffb014217"
+        "quic://kursk.cleverfox.org:15015"
+        "tcp://ygg-msk-1.averyan.ru:8363"
+        "tcp://u-neroit.ru:7000"
+        "tcp://37.192.232.33:8080"
         "tls://yggdrasil.neilalexander.dev:64648?key=ecbbcb3298e7d3b4196103333c3e839cfe47a6ca47602b94a6d596683f6bb358"
         "ws://ekb.itrus.su:7994"
         "tcp://185.188.183.161:2048"
