@@ -147,7 +147,7 @@
 #      euphonica
 
       lutris
-#      inputs.freesmlauncher.packages.${system}.freesmlauncher
+      inputs.freesmlauncher.packages.${system}.freesmlauncher
       mangohud
       gamemode
 
@@ -187,7 +187,7 @@
   programs.steam = {
     enable = true;
     package = pkgs.millennium-steam;
-    gamescopeSession.enable = true;
+#    gamescopeSession.enable = true;
   };
 
   programs.gamescope.enable = true;

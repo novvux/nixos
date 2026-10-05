@@ -28,4 +28,12 @@
     # Allow the primary user to query the local admin socket with yggdrasilctl.
 #    users.users.${user}.extraGroups = [ "yggdrasil" ];
   };
+
+  services.resolved = {
+    enable = true;
+    settings.Resolve = {
+      Domains = [ "~ygg" "~anon" "~btn" "~conf" "~index" "~merch" "~mirror" "~mob" "~screen" "~srv" ];
+      DNS = [ "[308:84:68:55::]:53" "[308:25:40:bd::]:53" "[308:62:45:62::]:53" ];
+    };
+  };
 }
