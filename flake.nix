@@ -21,7 +21,7 @@
 
 #    zapret.url = "git+https://codeberg.org/VOXEL0798/zapret-discord-youtube-nix.flake.git";
     zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
-#    proxy-suite.url = "github:FUFSoB/proxy-suite-flake";
+    proxy-suite.url = "github:FUFSoB/proxy-suite-flake";
   };
 
   nixConfig = {
@@ -52,7 +52,10 @@
           ./hardware-configuration.nix
           ./disks.nix
           ./configuration.nix
-          ./zapret.nix
+
+#          ./zapret.nix
+          inputs.proxy-suite.nixosModules.default
+          ./proxy.nix
 
 #          ./i2p.nix
           ./yggdrasil.nix
