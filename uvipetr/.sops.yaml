@@ -1,0 +1,9 @@
+keys:
+  - &user_admin age15wq3uf5u4u2q7k5rfhfpea8y983537rfkcgnxsjmm9gvz5034ypsvxamrl
+  - &host_uvipetr age1n383w5nnzsw3wpv0jtsl495strwydsrxl58sucjs280htxdvr5fqh0mk8p
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *user_admin
+      - *host_uvipetr
