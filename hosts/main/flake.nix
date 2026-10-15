@@ -22,6 +22,10 @@
 #    zapret.url = "git+https://codeberg.org/VOXEL0798/zapret-discord-youtube-nix.flake.git";
     zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
     proxy-suite.url = "github:FUFSoB/proxy-suite-flake";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -30,9 +34,6 @@
       "https://mirror.yandex.ru/nixos" 
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" 
       "https://mirror.sjtu.edu.cn/nix-channels/store" 
-      "https://chaotic-nyx.cachix.org" 
-      "https://nix-community.cachix.org" 
-      "https://nyx-cache.chaotic.cx"
     ];
 #    trusted-substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/" ];
     # Ensure you use the correct public key for the mirror
@@ -42,7 +43,7 @@
 
   outputs = { self, nixpkgs, zapret, mangowm, chaotic, home-manager, freesmlauncher, ... }@inputs: {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      main = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
